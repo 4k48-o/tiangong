@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.tiangong.mapper.ProductMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="productResultMap" type="org.jeecg.modules.tiangong.entity.Product">
+        <id column="id" property="id"/>
+        <result column="product_name" property="productName"/>
+        <result column="spu_name" property="spuName"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="data_language" property="dataLanguage"/>
+        <result column="cost_include_traveller_info" property="costIncludeTravellerInfo" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="senior_number" property="seniorNumber"/>
+        <result column="student_number" property="studentNumber"/>
+        <result column="children_number" property="childrenNumber"/>
+        <result column="adult_number" property="adultNumber"/>
+        <result column="reservation_type" property="reservationType"/>
+        <result column="ticket_kind_name" property="ticketKindName"/>
+        <result column="ticket_kind_id" property="ticketKindId"/>
+        <result column="session_name" property="sessionName"/>
+        <result column="region_name" property="regionName"/>
+        <result column="real_name" property="realName"/>
+        <result column="ticket_category" property="ticketCategory"/>
+        <result column="ticket_type" property="ticketType"/>
+        <result column="stock_type" property="stockType"/>
+        <result column="instant_confirm" property="instantConfirm"/>
+        <result column="instant_confirm_minute" property="instantConfirmMinute"/>
+        <result column="voucher_minute_type" property="voucherMinuteType"/>
+        <result column="instant_confirm_type" property="instantConfirmType"/>
+        <result column="voucher_minute" property="voucherMinute"/>
+        <result column="confirm_description" property="confirmDescription"/>
+        <result column="note" property="note"/>
+        <result column="special_info" property="specialInfo"/>
+        <result column="description" property="description"/>
+        <result column="transport" property="transport"/>
+        <result column="pick_up_description" property="pickUpDescription"/>
+        <result column="cost_include" property="costInclude"/>
+        <result column="cost_not_include" property="costNotInclude"/>
+        <result column="time_zone" property="timeZone"/>
+        <result column="is_session_ticket" property="isSessionTicket"/>
+        <result column="is_zero_ticket" property="isZeroTicket"/>
+        <result column="is_interval_ticket" property="isIntervalTicket"/>
+        <result column="is_area_ticket" property="isAreaTicket"/>
+        <result column="invoice_description" property="invoiceDescription"/>
+        <result column="insurance_description" property="insuranceDescription"/>
+        <result column="application_condition" property="applicationCondition"/>
+        <result column="currency" property="currency"/>
+        <result column="ext_info" property="extInfo"/>
+        <result column="sale_start_date" property="saleStartDate"/>
+        <result column="sale_start_time" property="saleStartTime"/>
+        <result column="sale_end_date" property="saleEndDate"/>
+        <result column="sale_end_time" property="saleEndTime"/>
+        <result column="sale_week_day" property="saleWeekDay" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="settlement_type" property="settlementType"/>
+        <result column="online_start_date" property="onlineStartDate"/>
+        <result column="online_end_date" property="onlineEndDate"/>
+        <result column="product_url" property="productUrl" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result column="wheelchair_access" property="wheelchairAccess"/>
+        <result column="skip_line" property="skipLine"/>
+        <result column="highlights" property="highlights"/>
+        <result column="interval_name" property="intervalName"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, product_name, spu_name, category_id, category_name, data_language, cost_include_traveller_info,
+        senior_number, student_number, children_number, adult_number, reservation_type, ticket_kind_name,
+        ticket_kind_id, session_name, region_name, real_name, ticket_category, ticket_type, stock_type,
+        instant_confirm, instant_confirm_minute, voucher_minute_type, instant_confirm_type, voucher_minute,
+        confirm_description, note, special_info, description, transport, pick_up_description, cost_include,
+        cost_not_include, time_zone, is_session_ticket, is_zero_ticket, is_interval_ticket, is_area_ticket,
+        invoice_description, insurance_description, application_condition, currency, ext_info, sale_start_date,
+        sale_start_time, sale_end_date, sale_end_time, sale_week_day, settlement_type, online_start_date,
+        online_end_date, product_url, wheelchair_access, skip_line, highlights, interval_name,
+        create_by, create_time, update_by, update_time
+    </sql>
+
+    <!-- 分页查询产品信息 -->
+    <select id="queryProductList" resultType="org.jeecg.modules.tiangong.model.ProductDTO">
+        SELECT 
+        <include refid="Base_Column_List"/>,
+        su1.realname as create_by_name,
+        su2.realname as update_by_name
+        FROM biz_product p
+        LEFT JOIN sys_user su1 ON p.create_by = su1.username
+        LEFT JOIN sys_user su2 ON p.update_by = su2.username
+        <where>
+            <if test="product.productName != null and product.productName != ''">
+                AND p.product_name LIKE CONCAT('%',#{product.productName},'%')
+            </if>
+            <if test="product.spuName != null and product.spuName != ''">
+                AND p.spu_name LIKE CONCAT('%',#{product.spuName},'%')
+            </if>
+            <if test="product.ticketKindName != null and product.ticketKindName != ''">
+                AND p.ticket_kind_name LIKE CONCAT('%',#{product.ticketKindName},'%')
+            </if>
+            <if test="product.categoryId != null and product.categoryId != ''">
+                AND p.category_id = #{product.categoryId}
+            </if>
+        </where>
+        ORDER BY p.create_time DESC
+    </select>
+
+    <!-- 根据ID查询产品详情 -->
+    <select id="getProductById" resultType="org.jeecg.modules.tiangong.model.ProductDTO">
+        SELECT 
+        <include refid="Base_Column_List"/>,
+        su1.realname as create_by_name,
+        su2.realname as update_by_name
+        FROM biz_product p
+        LEFT JOIN sys_user su1 ON p.create_by = su1.username
+        LEFT JOIN sys_user su2 ON p.update_by = su2.username
+        WHERE p.id = #{id}
+    </select>
+
+</mapper>
