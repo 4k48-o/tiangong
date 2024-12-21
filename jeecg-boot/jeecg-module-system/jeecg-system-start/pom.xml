@@ -18,10 +18,11 @@
             <artifactId>jeecg-system-biz</artifactId>
             <version>${jeecgboot.version}</version>
         </dependency>
-        <!-- DEMO 示例模块 -->
+
+        <!-- 天宫 模块 -->
         <dependency>
             <groupId>org.jeecgframework.boot</groupId>
-            <artifactId>jeecg-module-demo</artifactId>
+            <artifactId>jeecg-module-tiangong</artifactId>
             <version>${jeecgboot.version}</version>
         </dependency>
         
