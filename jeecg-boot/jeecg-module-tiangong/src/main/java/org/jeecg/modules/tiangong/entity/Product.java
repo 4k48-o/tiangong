@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import org.jeecg.common.aspect.annotation.Dict;
 import org.jeecg.modules.tiangong.entity.enums.*;
 import org.jeecgframework.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -63,6 +65,7 @@ public class Product implements Serializable {
     
     @Excel(name = "预约类型", width = 15)
     @ApiModelProperty(value = "预约类型")
+    @Dict(dicCode = "reservation_type")
     private ReservationType reservationType;
 
     @NotEmpty(message = "票种名称不能为空")
@@ -84,24 +87,29 @@ public class Product implements Serializable {
 
     @Excel(name = "是否实名制", width = 15)
     @ApiModelProperty(value = "是否实名制")
+    @Dict(dicCode = "real_name_type")
     private RealNameType realName;
 
     @NotNull(message = "门票分类不能为空")
     @Excel(name = "门票分类", width = 15)
     @ApiModelProperty(value = "门票分类", required = true)
+    @Dict(dicCode = "ticket_category")
     private TicketCategory ticketCategory;
 
     @NotNull(message = "出票类型不能为空")
     @Excel(name = "出票类型", width = 15)
     @ApiModelProperty(value = "出票类型", required = true)
+    @Dict(dicCode = "ticket_type")
     private TicketType ticketType;
 
     @Excel(name = "库存类型", width = 15)
     @ApiModelProperty(value = "库存类型")
+    @Dict(dicCode = "stock_type")
     private StockType stockType;
 
     @Excel(name = "是否立即确认", width = 15)
     @ApiModelProperty(value = "是否立即确认")
+    @Dict(dicCode = "options_type")
     private OptionsType instantConfirm;
 
     @Excel(name = "二次确认时长", width = 15)
@@ -110,10 +118,12 @@ public class Product implements Serializable {
 
     @Excel(name = "发送凭证时间类型", width = 15)
     @ApiModelProperty(value = "发送凭证时间类型")
+    @Dict(dicCode = "time_type")
     private VoucherTimeType voucherMinuteType;
 
     @Excel(name = "二次确认时长类型", width = 15)
     @ApiModelProperty(value = "二次确认时长类型")
+    @Dict(dicCode = "time_type")
     private VoucherTimeType instantConfirmType;
 
     @Excel(name = "发送凭证时间", width = 15)
@@ -162,19 +172,23 @@ public class Product implements Serializable {
     @NotNull(message = "是否场次票不能为空")
     @Excel(name = "是否场次票", width = 15)
     @ApiModelProperty(value = "是否场次票", required = true)
+    @Dict(dicCode = "options_type")
     private OptionsType isSessionTicket;
 
     @Excel(name = "是否零元票", width = 15)
     @ApiModelProperty(value = "是否零元票")
+    @Dict(dicCode = "options_type")
     private OptionsType isZeroTicket;
 
     @Excel(name = "是否区间票", width = 15)
     @ApiModelProperty(value = "是否区间票")
+    @Dict(dicCode = "options_type")
     private OptionsType isIntervalTicket;
 
     @NotNull(message = "是否区域票不能为空")
     @Excel(name = "是否区域票", width = 15)
     @ApiModelProperty(value = "是否区域票", required = true)
+    @Dict(dicCode = "options_type")
     private OptionsType isAreaTicket;
 
     @Excel(name = "发票说明", width = 15)
@@ -219,6 +233,7 @@ public class Product implements Serializable {
 
     @Excel(name = "结算方式", width = 15)
     @ApiModelProperty(value = "结算方式")
+    @Dict(dicCode = "settlement_type")
     private SettlementType settlementType;
 
     @Excel(name = "上架开始时间", width = 20)
@@ -235,10 +250,12 @@ public class Product implements Serializable {
 
     @Excel(name = "是否有轮椅通道", width = 15)
     @ApiModelProperty(value = "是否有轮椅通道")
+    @Dict(dicCode = "options_type")
     private OptionsType wheelchairAccess;
 
     @Excel(name = "是否包含免排队", width = 15)
     @ApiModelProperty(value = "是否包含免排队")
+    @Dict(dicCode = "options_type")
     private OptionsType skipLine;
 
     @Excel(name = "亮点介绍", width = 15)
