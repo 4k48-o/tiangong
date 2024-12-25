@@ -3,7 +3,7 @@ package org.jeecg.modules.tiangong.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,7 +13,6 @@ import lombok.experimental.Accessors;
 import org.jeecg.common.aspect.annotation.Dict;
 import org.jeecg.modules.tiangong.entity.enums.*;
 import org.jeecgframework.poi.excel.annotation.Excel;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -212,19 +211,19 @@ public class Product implements Serializable {
     private String extInfo;
 
     @Excel(name = "销售开始日期", width = 15)
-    @ApiModelProperty(value = "销售开始日期 格式：yyyy-MM-dd")
+    @ApiModelProperty(value = "销售开始日期 格式:yyyy-MM-dd")
     private String saleStartDate;
 
     @Excel(name = "销售开始时间", width = 15)
-    @ApiModelProperty(value = "销售开始时间 格式：HH:mm:ss")
+    @ApiModelProperty(value = "销售开始时间 格式:HH:mm:ss")
     private String saleStartTime;
 
     @Excel(name = "销售结束日期", width = 15)
-    @ApiModelProperty(value = "销售结束日期 格式：yyyy-MM-dd")
+    @ApiModelProperty(value = "销售结束日期 格式:yyyy-MM-dd")
     private String saleEndDate;
 
     @Excel(name = "销售结束时间", width = 15)
-    @ApiModelProperty(value = "销售结束时间 格式：HH:mm:ss")
+    @ApiModelProperty(value = "销售结束时间 格式:HH:mm:ss")
     private String saleEndTime;
 
     @Excel(name = "星期几可售", width = 15)
@@ -237,11 +236,11 @@ public class Product implements Serializable {
     private SettlementType settlementType;
 
     @Excel(name = "上架开始时间", width = 20)
-    @ApiModelProperty(value = "上架开始时间 格式：yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "上架开始时间 格式:yyyy-MM-dd HH:mm:ss")
     private String onlineStartDate;
 
     @Excel(name = "上架结束时间", width = 20)
-    @ApiModelProperty(value = "上架结束时间 格式：yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "上架结束时间 格式:yyyy-MM-dd HH:mm:ss")
     private String onlineEndDate;
 
     @Excel(name = "产品URL列表", width = 15)

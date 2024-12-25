@@ -86,3 +86,15 @@ VALUES ('1737453746274258984', '1737453746274258983', '旅客代表人', 'CONTAC
        ('1737453746274258986', '1737453746274258983', '寄送资料', 'SEND', '寄送资料', 3, 1, 'admin', '2024-12-21 12:01:23', NULL, NULL),
        ('1737453746274258987', '1737453746274258983', '联络资料', 'CONTACT', '联络资料', 4, 1, 'admin', '2024-12-21 12:01:23', NULL, NULL),
        ('1737453746274258988', '1737453746274258983', '未知', 'UNKNOWN', '未知', 5, 1, 'admin', '2024-12-21 12:01:23', NULL, NULL);
+
+
+INSERT INTO sys_dict (id, dict_name, dict_code, description, del_flag, create_by, create_time, update_by, update_time, type, tenant_id) 
+VALUES ('1737453746274258989', '截止预定时间相较场次时间的类型', 'session_time_type', '截止预定时间相较场次时间的类型', 0, 'admin', '2024-12-21 12:01:23', NULL, NULL, 0, 0);
+
+
+
+INSERT INTO sys_dict_item (id, dict_id, item_text, item_value, description, sort_order, status, create_by, create_time, update_by, update_time) 
+VALUES ('1737453746274258990', '1737453746274258989', '场次开始时间', 'CONTACT_TYPE', '旅客代表人', 1, 1, 'admin', '2024-12-21 12:01:23', NULL, NULL),
+       ('1737453746274258991', '1737453746274258989', '场次结束时', 'TRAVELER_TYPE', '每位旅客', 2, 1, 'admin', '2024-12-21 12:01:23', NULL, NULL),
+       ('1737453746274258992', '1737453746274258989', '其他', 'SEND', '寄送资料', 3, 1, 'admin', '2024-12-21 12:01:23', NULL, NULL),
+       ('1737453746274258993', '1737453746274258989', '未知', 'CONTACT', '联络资料', 4, 1, 'admin', '2024-12-21 12:01:23', NULL, NULL);
