@@ -21,33 +21,4 @@ import java.util.Date;
 @Service
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements IProductService {
 
-    @Override
-    public IPage<ProductDTO> queryProductList(Page<ProductDTO> page, Product product) {
-        return baseMapper.queryProductList(page, product);
-    }
-
-    @Override
-    public ProductDTO getProductById(String id) {
-        return baseMapper.getProductById(id);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean saveProduct(Product product) {
-       
-        return save(product);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean updateProduct(Product product) {
-        
-        return updateById(product);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean deleteProduct(String id) {
-        return removeById(id);
-    }
 }

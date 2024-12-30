@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
  * @Description: advance_booking_rule
- * @Author: jeecg-boot
+ * @Author: 老杨
  * @Date:   2024-12-25
  * @Version: V1.0
  */
