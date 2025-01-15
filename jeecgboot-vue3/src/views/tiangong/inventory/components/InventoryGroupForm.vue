@@ -2,44 +2,21 @@
   <a-spin :spinning="confirmLoading">
     <JFormContainer :disabled="disabled">
       <template #detail>
-        <a-form ref="formRef" class="antd-modal-form" :labelCol="labelCol" :wrapperCol="wrapperCol" name="InventoryForm">
+        <a-form ref="formRef" class="antd-modal-form" :labelCol="labelCol" :wrapperCol="wrapperCol" name="InventoryGroupForm">
           <a-row>
 						<a-col :span="24">
-							<a-form-item label="库存名称" v-bind="validateInfos.name" id="InventoryForm-name" name="name">
-								<a-input v-model:value="formData.name" placeholder="请输入库存名称"  allow-clear ></a-input>
+							<a-form-item label="库存组名称" v-bind="validateInfos.groupName" id="InventoryGroupForm-groupName" name="groupName">
+								<a-input v-model:value="formData.groupName" placeholder="请输入库存组名称"  allow-clear ></a-input>
 							</a-form-item>
 						</a-col>
 						<a-col :span="24">
-							<a-form-item label="库存编号" v-bind="validateInfos.inventorySn" id="InventoryForm-inventorySn" name="inventorySn">
-								<a-input v-model:value="formData.inventorySn" placeholder="请输入库存编号"  allow-clear ></a-input>
+							<a-form-item label="库存组别名" v-bind="validateInfos.groupAlias" id="InventoryGroupForm-groupAlias" name="groupAlias">
+								<a-input v-model:value="formData.groupAlias" placeholder="请输入库存组别名"  allow-clear ></a-input>
 							</a-form-item>
 						</a-col>
 						<a-col :span="24">
-							<a-form-item label="库存总量" v-bind="validateInfos.totalCapacity" id="InventoryForm-totalCapacity" name="totalCapacity">
-								<a-input-number v-model:value="formData.totalCapacity" placeholder="请输入库存总量" style="width: 100%" />
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="库存类型" v-bind="validateInfos.inventoryType" id="InventoryForm-inventoryType" name="inventoryType">
-								<a-input v-model:value="formData.inventoryType" placeholder="请输入库存类型"  allow-clear ></a-input>
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="生成频率" v-bind="validateInfos.inventoryGenerationDays" id="InventoryForm-inventoryGenerationDays" name="inventoryGenerationDays">
-								<a-input-number v-model:value="formData.inventoryGenerationDays" placeholder="请输入生成频率" style="width: 100%" />
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="开始日期" v-bind="validateInfos.startDate" id="InventoryForm-startDate" name="startDate">
-								
-                <a-date-picker  style="width: 100%" valueFormat='YYYY-MM-DD' v-model:value="formData.startDate" placeholder="Select Time" />
-
-                
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="结束日期" v-bind="validateInfos.endDate" id="InventoryForm-endDate" name="endDate">
-								<a-date-picker  style="width: 100%" valueFormat='YYYY-MM-DD' v-model:value="formData.endDate" placeholder="Select Time" />
+							<a-form-item label="库存" v-bind="validateInfos.inventoryId" id="InventoryGroupForm-inventoryId" name="inventoryId">
+								<j-select-multiple type="list_multi" v-model:value="formData.inventoryId" dictCode="biz_inventory,name,id" placeholder="请选择库存"  :triggerChange="false"/>
 							</a-form-item>
 						</a-col>
           </a-row>
@@ -53,27 +30,24 @@
   import { ref, reactive, defineExpose, nextTick, defineProps, computed, onMounted } from 'vue';
   import { defHttp } from '/@/utils/http/axios';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import JSelectMultiple from '/@/components/Form/src/jeecg/components/JSelectMultiple.vue';
   import { getValueType } from '/@/utils';
-  import { saveOrUpdate } from '../Inventory.api';
+  import { saveOrUpdate } from '../InventoryGroup.api';
   import { Form } from 'ant-design-vue';
   import JFormContainer from '/@/components/Form/src/container/JFormContainer.vue';
-  
   const props = defineProps({
     formDisabled: { type: Boolean, default: false },
-    formData: { type: Object, default: () => ({}) },
+    formData: { type: Object, default: () => ({})},
     formBpm: { type: Boolean, default: true }
   });
+  const formRef = ref();
   const useForm = Form.useForm;
   const emit = defineEmits(['register', 'ok']);
   const formData = reactive<Record<string, any>>({
     id: '',
-        name: '',   
-        inventorySn: '',   
-        totalCapacity: undefined,
-        inventoryType: '',   
-        inventoryGenerationDays: undefined,
-        startDate: '',   
-        endDate: '',   
+    groupName: '',   
+    groupAlias: '',   
+    inventoryId: '',   
   });
   const { createMessage } = useMessage();
   const labelCol = ref<any>({ xs: { span: 24 }, sm: { span: 5 } });
@@ -83,7 +57,7 @@
   const validatorRules = reactive({
   });
   const { resetFields, validate, validateInfos } = useForm(formData, validatorRules, { immediate: false });
-  const formRef = ref();
+
   // 表单禁用
   const disabled = computed(()=>{
     if(props.formBpm === true){
@@ -117,7 +91,7 @@
         }
       })
       //赋值
-      Object.assign(formData,tmpData);
+      Object.assign(formData, tmpData);
     });
   }
 
